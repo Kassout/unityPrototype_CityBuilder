@@ -54,8 +54,20 @@ public class PlacementManager : MonoBehaviour
         }
     }
 
-    internal CellType[] GetNeighboursTypesFor(Vector3Int position)
+    internal CellType[] GetNeighbourTypesFor(Vector3Int position)
     {
-        return _placementGrid.GetAllAdjacentCellTypes(position.x, position.y);
+        return _placementGrid.GetAllAdjacentCellTypes(position.x, position.z);
+    }
+
+    public List<Vector3Int> GetNeighbourOfTypeFor(Vector3Int position, CellType type)
+    {
+        var neighbourVertices = _placementGrid.GetAdjacentCellsOfType(position.x, position.z, type);
+        var neighbours = new List<Vector3Int>();
+        foreach (var vertex in neighbourVertices)
+        {
+            neighbours.Add(new Vector3Int(vertex.X, 0, vertex.Y));
+        }
+
+        return neighbours;
     }
 }
