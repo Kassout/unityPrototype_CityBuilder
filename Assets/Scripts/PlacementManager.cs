@@ -53,4 +53,9 @@ public class PlacementManager : MonoBehaviour
             model.SwapModel(newModel, rotation);
         }
     }
+
+    internal CellType[] GetNeighboursTypesFor(Vector3Int position)
+    {
+        return _placementGrid.GetAllAdjacentCellTypes(position.x, position.y);
+    }
 }
