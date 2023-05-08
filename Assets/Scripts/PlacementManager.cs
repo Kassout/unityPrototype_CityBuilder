@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlacementManager : MonoBehaviour
@@ -6,6 +7,8 @@ public class PlacementManager : MonoBehaviour
 
     private Grid _placementGrid;
 
+    private Dictionary<Vector3Int, StructureModel> _temporaryRoadObjects = new();
+
     private void Start()
     {
         _placementGrid = new Grid(width, height);
@@ -13,7 +16,6 @@ public class PlacementManager : MonoBehaviour
 
     public bool CheckIfPositionInBound(Vector3Int position)
     {
-        Debug.Log(position);
         return position.x >= 0 && position.x < width && position.z >= 0 && position.z < height;
     }
 
@@ -27,9 +29,28 @@ public class PlacementManager : MonoBehaviour
         return _placementGrid[position.x, position.z] == type;
     }
 
-    public void PlaceTemporaryStructure(Vector3Int position, GameObject structure, CellType type)
+    public void PlaceTemporaryStructure(Vector3Int position, GameObject structurePrefab, CellType type)
     {
         _placementGrid[position.x, position.z] = type;
-        GameObject newStructure = Instantiate(structure, position, Quaternion.identity);
+        StructureModel structure = CreateNewStructureModel(position, structurePrefab, type);
+        _temporaryRoadObjects.Add(position, structure);
+    }
+
+    private StructureModel CreateNewStructureModel(Vector3Int position, GameObject structurePrefab, CellType type)
+    {
+        GameObject structure = new GameObject(type.ToString());
+        structure.transform.SetParent(transform);
+        structure.transform.localPosition = position;
+        var model = structure.AddComponent<StructureModel>();
+        model.CreateModel(structurePrefab);
+        return model;
+    }
+
+    public void ModifyStructureModel(Vector3Int position, GameObject newModel, Quaternion rotation)
+    {
+        if (_temporaryRoadObjects.TryGetValue(position, out StructureModel model))
+        {
+            model.SwapModel(newModel, rotation);
+        }
     }
 }
