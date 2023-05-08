@@ -1,22 +1,24 @@
 using UnityEngine;
 
-public class RoadFixer : MonoBehaviour
+public class RoadFixer
 {
-    [SerializeField] private GameObject deadEnd;
-    [SerializeField] private GameObject roadStraight;
-    [SerializeField] private GameObject corner;
-    [SerializeField] private GameObject threeWay;
-    [SerializeField] private GameObject fourWay;
-
-    public void FixRoadAtPosition(PlacementManager placementManager, Vector3Int temporaryPosition)
+    private static RoadPrefabsData _roadsData;
+    
+    public RoadFixer(RoadPrefabsData roadsData)
+    {
+        _roadsData = roadsData;
+        
+    }
+    
+    public void FixRoadAtPosition(Vector3Int temporaryPosition)
     {
         // [right, up, left, down]
-        var results = placementManager.GetNeighbourTypesFor(temporaryPosition);
+        var cellTypes = PlacementManager.GetNeighbourTypesFor(temporaryPosition);
         int roadCount = 0;
 
-        for (int i = 0; i < results.Length; i++)
+        foreach (var type in cellTypes)
         {
-            if (results[i] == CellType.Road)
+            if (type == CellType.Road)
             {
                 roadCount++;
             }
@@ -24,106 +26,106 @@ public class RoadFixer : MonoBehaviour
 
         if (roadCount is 0 or 1)
         {
-            CreateDeadEnd(placementManager, results, temporaryPosition);
+            CreateDeadEnd(cellTypes, temporaryPosition);
         }
         else if (roadCount == 2)
         {
-            if (CreateStraightRoad(placementManager, results, temporaryPosition))
+            if (CreateStraightRoad(cellTypes, temporaryPosition))
             {
                 return;
             }
 
-            CreateCorner(placementManager, results, temporaryPosition);
+            CreateCorner(cellTypes, temporaryPosition);
         }
         else if (roadCount == 3)
         {
-            Create3Way(placementManager, results, temporaryPosition);
+            Create3Way(cellTypes, temporaryPosition);
         }
         else
         {
-            Create4Way(placementManager, results, temporaryPosition);
+            Create4Way(temporaryPosition);
         }
     }
 
-    private void Create4Way(PlacementManager placementManager, CellType[] results, Vector3Int temporaryPosition)
+    private static void Create4Way(Vector3Int temporaryPosition)
     {
-        placementManager.ModifyStructureModel(temporaryPosition, fourWay, Quaternion.identity);
+        PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.fourWay, Quaternion.identity);
     }
 
-    private void Create3Way(PlacementManager placementManager, CellType[] results, Vector3Int temporaryPosition)
+    private static void Create3Way(CellType[] results, Vector3Int temporaryPosition)
     {
         if (results[1] == CellType.Road && results[2] == CellType.Road && results[3] == CellType.Road)
         {
-            placementManager.ModifyStructureModel(temporaryPosition, threeWay, Quaternion.identity);
+            PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.threeWay, Quaternion.identity);
         }
         else if (results[2] == CellType.Road && results[3] == CellType.Road && results[0] == CellType.Road)
         {
-            placementManager.ModifyStructureModel(temporaryPosition, threeWay, Quaternion.Euler(0f, 90f, 0f));
+            PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.threeWay, Quaternion.Euler(0f, 90f, 0f));
         }
         else if (results[3] == CellType.Road && results[0] == CellType.Road && results[1] == CellType.Road)
         {
-            placementManager.ModifyStructureModel(temporaryPosition, threeWay, Quaternion.Euler(0f, 180f, 0f));
+            PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.threeWay, Quaternion.Euler(0f, 180f, 0f));
         }
         else
         {
-            placementManager.ModifyStructureModel(temporaryPosition, threeWay, Quaternion.Euler(0f, 270f, 0f));
+            PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.threeWay, Quaternion.Euler(0f, 270f, 0f));
         }
     }
 
-    private void CreateCorner(PlacementManager placementManager, CellType[] results, Vector3Int temporaryPosition)
+    private void CreateCorner(CellType[] results, Vector3Int temporaryPosition)
     {
         if (results[1] == CellType.Road && results[2] == CellType.Road)
         {
-            placementManager.ModifyStructureModel(temporaryPosition, corner, Quaternion.Euler(0f, 90f, 0f));
+            PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.corner, Quaternion.Euler(0f, 90f, 0f));
         }
         else if (results[2] == CellType.Road && results[3] == CellType.Road)
         {
-            placementManager.ModifyStructureModel(temporaryPosition, corner, Quaternion.Euler(0f, 180f, 0f));
+            PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.corner, Quaternion.Euler(0f, 180f, 0f));
         }
         else if (results[3] == CellType.Road && results[0] == CellType.Road)
         {
-            placementManager.ModifyStructureModel(temporaryPosition, corner, Quaternion.Euler(0f, 270f, 0f));
+            PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.corner, Quaternion.Euler(0f, 270f, 0f));
         }
         else
         {
-            placementManager.ModifyStructureModel(temporaryPosition, corner, Quaternion.identity);
+            PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.corner, Quaternion.identity);
         }
     }
 
-    private bool CreateStraightRoad(PlacementManager placementManager, CellType[] results, Vector3Int temporaryPosition)
+    private bool CreateStraightRoad(CellType[] results, Vector3Int temporaryPosition)
     {
         if (results[0] == CellType.Road && results[2] == CellType.Road)
         {
-            placementManager.ModifyStructureModel(temporaryPosition, roadStraight, Quaternion.identity);
+            PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.roadStraight, Quaternion.identity);
             return true;
         }
         
         if (results[1] == CellType.Road && results[3] == CellType.Road)
         {
-            placementManager.ModifyStructureModel(temporaryPosition, roadStraight, Quaternion.Euler(0f, 90f, 0f));
+            PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.roadStraight, Quaternion.Euler(0f, 90f, 0f));
             return true;
         }
 
         return false;
     }
 
-    private void CreateDeadEnd(PlacementManager placementManager, CellType[] results, Vector3Int temporaryPosition)
+    private void CreateDeadEnd(CellType[] results, Vector3Int temporaryPosition)
     {
         if (results[1] == CellType.Road)
         {
-            placementManager.ModifyStructureModel(temporaryPosition, deadEnd, Quaternion.Euler(0f, 270f, 0f));
+            PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.deadEnd, Quaternion.Euler(0f, 270f, 0f));
         }
         else if (results[2] == CellType.Road)
         {
-            placementManager.ModifyStructureModel(temporaryPosition, deadEnd, Quaternion.identity);
+            PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.deadEnd, Quaternion.identity);
         }
         else if (results[3] == CellType.Road)
         {
-            placementManager.ModifyStructureModel(temporaryPosition, deadEnd, Quaternion.Euler(0f, 90f, 0f));
+            PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.deadEnd, Quaternion.Euler(0f, 90f, 0f));
         }
         else
         {
-            placementManager.ModifyStructureModel(temporaryPosition, deadEnd, Quaternion.Euler(0f, 180f, 0f));
+            PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.deadEnd, Quaternion.Euler(0f, 180f, 0f));
         }
     }
 }

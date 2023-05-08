@@ -4,18 +4,25 @@ using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour
 {
-    public Action<Vector3Int> MouseClick;
-    public Action<Vector3Int> MouseHold;
-    public Action MouseUp;
+    #region Fields / Properties
 
+    public Vector2 CameraMovement { get; private set; }
+    
     [SerializeField] private Camera mainCamera;
     
     [SerializeField] private LayerMask groundMask;
-    
-    private Vector2 _cameraMovement;
 
-    public Vector2 CameraMovement => _cameraMovement;
-    public LayerMask GroundMask => groundMask;
+    #endregion
+
+    #region Events
+
+    public event Action<Vector3Int> MouseClick;
+    public event Action<Vector3Int> MouseHold;
+    public event Action MouseUp;
+
+    #endregion
+
+    #region MonoBehaviour
 
     private void Update()
     {
@@ -24,6 +31,10 @@ public class InputManager : MonoBehaviour
         CheckClickHoldEvent();
         CheckArrowInput();
     }
+
+    #endregion
+
+    #region Private
 
     private Vector3Int? RaycastGround()
     {
@@ -72,6 +83,8 @@ public class InputManager : MonoBehaviour
 
     private void CheckArrowInput()
     {
-        _cameraMovement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        CameraMovement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
+
+    #endregion
 }

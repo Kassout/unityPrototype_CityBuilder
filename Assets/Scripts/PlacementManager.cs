@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class PlacementManager : MonoBehaviour
 {
-    public int width, height;
+    [SerializeField] private int width;
+    [SerializeField] private int height;
 
-    private Grid _placementGrid;
-
-    private Dictionary<Vector3Int, StructureModel> _temporaryRoadObjects = new();
+    private static Dictionary<Vector3Int, StructureModel> _temporaryRoadObjects = new();
+    
+    private static Grid _placementGrid;
 
     private void Start()
     {
@@ -46,7 +47,7 @@ public class PlacementManager : MonoBehaviour
         return model;
     }
 
-    public void ModifyStructureModel(Vector3Int position, GameObject newModel, Quaternion rotation)
+    public static void ModifyStructureModel(Vector3Int position, GameObject newModel, Quaternion rotation)
     {
         if (_temporaryRoadObjects.TryGetValue(position, out StructureModel model))
         {
@@ -54,7 +55,7 @@ public class PlacementManager : MonoBehaviour
         }
     }
 
-    internal CellType[] GetNeighbourTypesFor(Vector3Int position)
+    internal static CellType[] GetNeighbourTypesFor(Vector3Int position)
     {
         return _placementGrid.GetAllAdjacentCellTypes(position.x, position.z);
     }

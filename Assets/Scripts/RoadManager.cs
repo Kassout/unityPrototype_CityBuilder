@@ -1,21 +1,22 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RoadManager : MonoBehaviour
 {
-    public PlacementManager placementManager;
-
-    public List<Vector3Int> temporaryPlacementPositions = new();
-    public List<Vector3Int> roadPositionsToRecheck = new();
-
-    public GameObject roadStraight;
-
-    public RoadFixer roadFixer;
+    [SerializeField] private GameObject roadStraight;
+    
+    [SerializeField] private RoadPrefabsData roadPrefabsData;
+    
+    [SerializeField] private PlacementManager placementManager;
+    
+    private List<Vector3Int> _roadPositionsToRecheck = new();
+    private readonly List<Vector3Int> _temporaryPlacementPositions = new();
+    
+    private RoadFixer _roadFixer;
 
     private void Start()
     {
-        roadFixer = GetComponent<RoadFixer>();
+        _roadFixer = new RoadFixer(roadPrefabsData);
     }
 
     public void PlaceRoad(Vector3Int position)
@@ -30,23 +31,23 @@ public class RoadManager : MonoBehaviour
             return;
         }
 
-        temporaryPlacementPositions.Clear();
-        temporaryPlacementPositions.Add(position);
+        _temporaryPlacementPositions.Clear();
+        _temporaryPlacementPositions.Add(position);
         placementManager.PlaceTemporaryStructure(position, roadStraight, CellType.Road);
         FixRoadPrefabs();
     }
 
     private void FixRoadPrefabs()
     {
-        foreach (var temporaryPosition in temporaryPlacementPositions)
+        foreach (var temporaryPosition in _temporaryPlacementPositions)
         {
-            roadFixer.FixRoadAtPosition(placementManager, temporaryPosition);
-            roadPositionsToRecheck = placementManager.GetNeighbourOfTypeFor(temporaryPosition, CellType.Road);
+            _roadFixer.FixRoadAtPosition(temporaryPosition);
+            _roadPositionsToRecheck = placementManager.GetNeighbourOfTypeFor(temporaryPosition, CellType.Road);
         }
 
-        foreach (var roadPosition in roadPositionsToRecheck)
+        foreach (var roadPosition in _roadPositionsToRecheck)
         {
-            roadFixer.FixRoadAtPosition(placementManager, roadPosition);    
+            _roadFixer.FixRoadAtPosition(roadPosition);    
         }
     }
 }
