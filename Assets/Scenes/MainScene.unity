@@ -1341,6 +1341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1392421310}
   - component: {fileID: 1392421311}
+  - component: {fileID: 1392421312}
   m_Layer: 0
   m_Name: Road Manager
   m_TagString: Untagged
@@ -1378,6 +1379,23 @@ MonoBehaviour:
   placementManager: {fileID: 2137999391}
   temporaryPlacementPositions: []
   roadStraight: {fileID: 181245407505565433, guid: 04d9d158065e5c9419ddb2731ed4cc41, type: 3}
+--- !u!114 &1392421312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392421309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 460e2e0e77101f7459aa22a987850c7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadEnd: {fileID: 5648094650807560525, guid: 68e0982d37550844c85f347fe59621ca, type: 3}
+  roadStraight: {fileID: 181245407505565433, guid: 04d9d158065e5c9419ddb2731ed4cc41, type: 3}
+  corner: {fileID: 4600277117770888446, guid: 7863801857df8104d8f917c67472c861, type: 3}
+  threeWay: {fileID: 805688669485908915, guid: fc8c5afbaac97f94eb45b18e7064dc58, type: 3}
+  fourWay: {fileID: 1062943314149300045, guid: 3c7fd1c99925cd44da2aec004fa33618, type: 3}
 --- !u!1 &1415691118
 GameObject:
   m_ObjectHideFlags: 0
