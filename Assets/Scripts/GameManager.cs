@@ -1,11 +1,11 @@
-using System;
 using SVS;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public CameraMovement cameraMovement;
-    public InputManager inputManager;
+    [SerializeField] private CameraMovement cameraMovement;
+    [SerializeField] private RoadManager roadManager;
+    [SerializeField] private InputManager inputManager;
 
     private void Start()
     {
@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleMouseClick(Vector3Int position)
     {
-        //throw new NotImplementedException();
+        roadManager.PlaceRoad(position);
     }
 
     private void Update()
