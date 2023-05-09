@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 17211160}
   - component: {fileID: 17211159}
   - component: {fileID: 17211158}
+  - component: {fileID: 17211161}
   m_Layer: 5
   m_Name: Place Road Button
   m_TagString: Untagged
@@ -245,6 +246,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17211156}
   m_CullTransparentMesh: 1
+--- !u!114 &17211161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17211156}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.8555315, g: 1, b: 0.05098039, a: 1}
+  m_EffectDistance: {x: 3, y: 3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &54563202
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,6 +341,7 @@ GameObject:
   - component: {fileID: 269760588}
   - component: {fileID: 269760587}
   - component: {fileID: 269760586}
+  - component: {fileID: 269760589}
   m_Layer: 5
   m_Name: Place Special Button
   m_TagString: Untagged
@@ -435,6 +452,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269760584}
   m_CullTransparentMesh: 1
+--- !u!114 &269760589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269760584}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.8555315, g: 1, b: 0.05098039, a: 1}
+  m_EffectDistance: {x: 3, y: 3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &628995077
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,6 +1118,7 @@ GameObject:
   - component: {fileID: 1250285724}
   - component: {fileID: 1250285723}
   - component: {fileID: 1250285722}
+  - component: {fileID: 1250285725}
   m_Layer: 5
   m_Name: Place House Button
   m_TagString: Untagged
@@ -1196,6 +1229,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250285720}
   m_CullTransparentMesh: 1
+--- !u!114 &1250285725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250285720}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.8555315, g: 1, b: 0.05098039, a: 1}
+  m_EffectDistance: {x: 3, y: 3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1367063245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1825,6 +1873,7 @@ GameObject:
   - component: {fileID: 2042147270}
   - component: {fileID: 2042147269}
   - component: {fileID: 2042147268}
+  - component: {fileID: 2042147272}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1914,6 +1963,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2042147272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042147267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00eb60ab066fc214db6d4714f967fd02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineColor: {r: 0, g: 0, b: 0, a: 0}
+  placeRoadButton: {fileID: 0}
+  placeHouseButton: {fileID: 0}
+  placeSpecialButton: {fileID: 0}
 --- !u!1 &2137999389
 GameObject:
   m_ObjectHideFlags: 0

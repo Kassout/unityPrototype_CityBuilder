@@ -87,4 +87,11 @@ public class InputManager : MonoBehaviour
     }
 
     #endregion
+
+    public void ClearInputActions()
+    {
+        MouseClick = null;
+        MouseHold = null;
+        MouseUp = null;
+    }
 }
