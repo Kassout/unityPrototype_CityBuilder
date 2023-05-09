@@ -1,9 +1,10 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlacementManager : MonoBehaviour
 {
+    public static PlacementManager instance;
+
     [SerializeField] private int width;
     [SerializeField] private int height;
 
@@ -12,6 +13,18 @@ public class PlacementManager : MonoBehaviour
     
     private static Grid _placementGrid;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     private void Start()
     {
         _placementGrid = new Grid(width, height);
@@ -49,7 +62,7 @@ public class PlacementManager : MonoBehaviour
         return model;
     }
 
-    public static void ModifyStructureModel(Vector3Int position, GameObject newModel, Quaternion rotation)
+    public void ModifyStructureModel(Vector3Int position, GameObject newModel, Quaternion rotation)
     {
         if (_temporaryStructures.TryGetValue(position, out var model))
         {
@@ -61,7 +74,7 @@ public class PlacementManager : MonoBehaviour
         }
     }
 
-    internal static CellType[] GetNeighbourTypesFor(Vector3Int position)
+    internal CellType[] GetNeighbourTypesFor(Vector3Int position)
     {
         return _placementGrid.GetAllAdjacentCellTypes(position.x, position.z);
     }
