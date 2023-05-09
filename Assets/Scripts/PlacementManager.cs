@@ -127,10 +127,18 @@ public class PlacementManager : MonoBehaviour
         _temporaryStructures.Clear();
     }
 
-    public void PlaceObjectOnTheMap(Vector3Int position, GameObject structurePrefab, CellType type)
+    public void PlaceObjectOnTheMap(Vector3Int position, GameObject structurePrefab, CellType type, int width = 1, int height = 1)
     {
-        _placementGrid[position.x, position.z] = type;
         StructureModel structure = CreateNewStructureModel(position, structurePrefab, type);
-        _structures.Add(position, structure);
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < height; z++)
+            {
+                var newPosition = position + new Vector3Int(x, 0, z);
+                _placementGrid[newPosition.x, newPosition.z] = type;
+                _structures.Add(newPosition, structure);
+            }
+        }
     }
 }

@@ -8,12 +8,14 @@ public class UIController : MonoBehaviour
     public event Action RoadPlacement;
     public event Action HousePlacement;
     public event Action SpecialPlacement;
+    public event Action BigStructurePlacement;
 
     [SerializeField] private Color outlineColor;
 
     [SerializeField] private Button placeRoadButton;
     [SerializeField] private Button placeHouseButton;
     [SerializeField] private Button placeSpecialButton;
+    [SerializeField] private Button placeBigStructureButton;
     
     private List<Button> _buttons;
 
@@ -40,6 +42,13 @@ public class UIController : MonoBehaviour
             ResetButtonColor();
             ModifyOutline(placeSpecialButton);
             SpecialPlacement?.Invoke();
+        });
+        
+        placeBigStructureButton.onClick.AddListener(() =>
+        {
+            ResetButtonColor();
+            ModifyOutline(placeBigStructureButton);
+            BigStructurePlacement?.Invoke();
         });
     }
 
