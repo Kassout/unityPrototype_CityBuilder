@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,8 @@ public class PlacementManager : MonoBehaviour
     [SerializeField] private int width;
     [SerializeField] private int height;
 
-    private static Dictionary<Vector3Int, StructureModel> _temporaryRoadObjects = new();
+    private static Dictionary<Vector3Int, StructureModel> _temporaryStructures = new();
+    private static Dictionary<Vector3Int, StructureModel> _structures = new();
     
     private static Grid _placementGrid;
 
@@ -34,7 +36,7 @@ public class PlacementManager : MonoBehaviour
     {
         _placementGrid[position.x, position.z] = type;
         StructureModel structure = CreateNewStructureModel(position, structurePrefab, type);
-        _temporaryRoadObjects.Add(position, structure);
+        _temporaryStructures.Add(position, structure);
     }
 
     private StructureModel CreateNewStructureModel(Vector3Int position, GameObject structurePrefab, CellType type)
@@ -49,7 +51,11 @@ public class PlacementManager : MonoBehaviour
 
     public static void ModifyStructureModel(Vector3Int position, GameObject newModel, Quaternion rotation)
     {
-        if (_temporaryRoadObjects.TryGetValue(position, out StructureModel model))
+        if (_temporaryStructures.TryGetValue(position, out var model))
+        {
+            model.SwapModel(newModel, rotation);
+        }
+        else if (_structures.TryGetValue(position, out model))
         {
             model.SwapModel(newModel, rotation);
         }
@@ -74,16 +80,37 @@ public class PlacementManager : MonoBehaviour
 
     public void RemoveAllTemporaryStructures()
     {
-        throw new System.NotImplementedException();
+        foreach (var structure in _temporaryStructures.Values)
+        {
+            var position = Vector3Int.RoundToInt(structure.transform.position);
+            _placementGrid[position.x, position.z] = CellType.Empty;
+            Destroy(structure.gameObject);
+        }
+        
+        _temporaryStructures.Clear();
     }
 
-    public List<Vector3Int> GetPathBetween(Vector3Int startPosition, Vector3Int position)
+    public List<Vector3Int> GetPathBetween(Vector3Int startPosition, Vector3Int endPosition)
     {
-        throw new System.NotImplementedException();
+        var resultPath = GridSearch.AStarSearch(_placementGrid, 
+            new Point(startPosition.x, startPosition.z), 
+            new Point(endPosition.x, endPosition.z));
+
+        var path = new List<Vector3Int>();
+        foreach (var point in resultPath)
+        {
+            path.Add(new Vector3Int(point.X, 0, point.Y));
+        }
+
+        return path;
     }
 
-    public void AddToStructureDictionary()
+    public void AddToStructures()
     {
-        throw new System.NotImplementedException();
+        foreach (var structure in _temporaryStructures)
+        {
+            _structures.Add(structure.Key, structure.Value);
+        }
+        _temporaryStructures.Clear();
     }
 }

@@ -49,12 +49,23 @@ public class RoadManager : MonoBehaviour
         {
             placementManager.RemoveAllTemporaryStructures();
             _temporaryPlacementPositions.Clear();
+
+            foreach (var positionToFix in _roadPositionsToRecheck)
+            {
+                _roadFixer.FixRoadAtPosition(positionToFix);
+            }
+            
             _roadPositionsToRecheck.Clear();
 
             _temporaryPlacementPositions = placementManager.GetPathBetween(_startPosition, position);
 
             foreach (var temporaryPosition in _temporaryPlacementPositions)
             {
+                if (!placementManager.CheckIfPositionIsFree(temporaryPosition))
+                {
+                    continue;
+                }
+                
                 placementManager.PlaceTemporaryStructure(temporaryPosition, roadPrefabsData.deadEnd, CellType.Road);
             }
         }
@@ -86,7 +97,7 @@ public class RoadManager : MonoBehaviour
     public void FinishPlacingRoad()
     {
         _placementMode = false;
-        placementManager.AddToStructureDictionary();
+        placementManager.AddToStructures();
 
         if (_temporaryPlacementPositions.Count > 0)
         {

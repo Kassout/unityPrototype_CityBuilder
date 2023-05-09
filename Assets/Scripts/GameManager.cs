@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         inputManager.MouseClick += roadManager.PlaceRoad;
-        inputManager.MouseHold += roadManager.PlaceRoad
+        inputManager.MouseHold += roadManager.PlaceRoad;
         inputManager.MouseUp += roadManager.FinishPlacingRoad;
     }
 
