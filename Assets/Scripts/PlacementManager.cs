@@ -126,4 +126,9 @@ public class PlacementManager : MonoBehaviour
         }
         _temporaryStructures.Clear();
     }
+
+    public void PlaceObjectOnTheMap(Vector3Int position, GameObject prefab, CellType structure)
+    {
+        throw new System.NotImplementedException();
+    }
 }
