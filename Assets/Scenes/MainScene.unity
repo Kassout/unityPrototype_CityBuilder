@@ -329,6 +329,71 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &249328689
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 249328690}
+  - component: {fileID: 249328691}
+  m_Layer: 0
+  m_Name: Structure Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &249328690
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249328689}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &249328691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249328689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 023c9dd454e97b241b2b1d6f170827b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  housePrefabs:
+  - prefab: {fileID: 5577927016372634452, guid: 2ca3686e82b1ac742be0cb50bad399bb, type: 3}
+    weight: 1
+  - prefab: {fileID: 2679353536848508740, guid: 82028128e839ad742b013aa469557272, type: 3}
+    weight: 1
+  - prefab: {fileID: 8577419693243423406, guid: 7671883ca754f1d48b23aa6955dd978f, type: 3}
+    weight: 1
+  - prefab: {fileID: 8694811094290370977, guid: 02b0b37f2ea85a4479be68730472690f, type: 3}
+    weight: 1
+  - prefab: {fileID: 1061160622008375364, guid: 15975e6b11f08274b96688555a8a0442, type: 3}
+    weight: 1
+  - prefab: {fileID: 5438808664877389787, guid: 95814482b9452d54286083d5a3b0a84a, type: 3}
+    weight: 1
+  specialPrefabs:
+  - prefab: {fileID: 6039004640725398265, guid: 9484a0a0231490f43b870f07c4bd83ff, type: 3}
+    weight: 1
+  - prefab: {fileID: 3886971375168288297, guid: 657821dd294624c4cada6ab5a98884f5, type: 3}
+    weight: 1
+  - prefab: {fileID: 1036187516309412384, guid: 97418d431b9475041be072260bb98498, type: 3}
+    weight: 1
+  _placementManager: {fileID: 2137999391}
 --- !u!1 &269760584
 GameObject:
   m_ObjectHideFlags: 0
@@ -1812,7 +1877,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraMovement: {fileID: 1543579581}
   roadManager: {fileID: 1392421311}
+  structureManager: {fileID: 249328691}
   inputManager: {fileID: 1987701481}
+  uiController: {fileID: 2042147272}
 --- !u!1 &1987701479
 GameObject:
   m_ObjectHideFlags: 0
@@ -1975,10 +2042,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00eb60ab066fc214db6d4714f967fd02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineColor: {r: 0, g: 0, b: 0, a: 0}
-  placeRoadButton: {fileID: 0}
-  placeHouseButton: {fileID: 0}
-  placeSpecialButton: {fileID: 0}
+  outlineColor: {r: 0.8556143, g: 1, b: 0, a: 1}
+  placeRoadButton: {fileID: 17211158}
+  placeHouseButton: {fileID: 1250285722}
+  placeSpecialButton: {fileID: 269760586}
 --- !u!1 &2137999389
 GameObject:
   m_ObjectHideFlags: 0

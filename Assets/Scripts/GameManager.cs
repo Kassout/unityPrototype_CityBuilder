@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private CameraMovement cameraMovement;
     [SerializeField] private RoadManager roadManager;
+    [SerializeField] private StructureManager structureManager;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private UIController uiController;
     
@@ -18,11 +19,15 @@ public class GameManager : MonoBehaviour
     private void OnSpecialPlacement()
     {
         inputManager.ClearInputActions();
+        
+        inputManager.MouseClick += structureManager.PlaceSpecial;
     }
 
     private void OnHousePlacement()
     {
         inputManager.ClearInputActions();
+        
+        inputManager.MouseClick += structureManager.PlaceHouse;
     }
 
     private void OnRoadPlacement()
