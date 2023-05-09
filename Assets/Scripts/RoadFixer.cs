@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RoadFixer
@@ -52,7 +53,7 @@ public class RoadFixer
         PlacementManager.ModifyStructureModel(temporaryPosition, _roadsData.fourWay, Quaternion.identity);
     }
 
-    private static void Create3Way(CellType[] results, Vector3Int temporaryPosition)
+    private static void Create3Way(IReadOnlyList<CellType> results, Vector3Int temporaryPosition)
     {
         if (results[1] == CellType.Road && results[2] == CellType.Road && results[3] == CellType.Road)
         {
@@ -72,7 +73,7 @@ public class RoadFixer
         }
     }
 
-    private void CreateCorner(CellType[] results, Vector3Int temporaryPosition)
+    private void CreateCorner(IReadOnlyList<CellType> results, Vector3Int temporaryPosition)
     {
         if (results[1] == CellType.Road && results[2] == CellType.Road)
         {
@@ -92,7 +93,7 @@ public class RoadFixer
         }
     }
 
-    private bool CreateStraightRoad(CellType[] results, Vector3Int temporaryPosition)
+    private bool CreateStraightRoad(IReadOnlyList<CellType> results, Vector3Int temporaryPosition)
     {
         if (results[0] == CellType.Road && results[2] == CellType.Road)
         {
@@ -109,7 +110,7 @@ public class RoadFixer
         return false;
     }
 
-    private void CreateDeadEnd(CellType[] results, Vector3Int temporaryPosition)
+    private static void CreateDeadEnd(IReadOnlyList<CellType> results, Vector3Int temporaryPosition)
     {
         if (results[1] == CellType.Road)
         {

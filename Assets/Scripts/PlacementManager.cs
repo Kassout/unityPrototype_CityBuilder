@@ -71,4 +71,19 @@ public class PlacementManager : MonoBehaviour
 
         return neighbours;
     }
+
+    public void RemoveAllTemporaryStructures()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public List<Vector3Int> GetPathBetween(Vector3Int startPosition, Vector3Int position)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void AddToStructureDictionary()
+    {
+        throw new System.NotImplementedException();
+    }
 }
